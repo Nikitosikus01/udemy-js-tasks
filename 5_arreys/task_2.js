@@ -3,14 +3,26 @@
 // эти строки в нижнем регистре.
 
 
+// let favoriteCities = ['liSBon', 'ROME', 'miLan', 'Dublin'];
+
+// function standardizeStrings(arr) {
+//     let st = '';
+//     for (const iterator of arr) {
+//         st += `${iterator.toLowerCase()}\n`;
+//     }
+//     return st;
+// }
+
+// console.log(standardizeStrings(favoriteCities));
+
+
+
 let favoriteCities = ['liSBon', 'ROME', 'miLan', 'Dublin'];
 
 function standardizeStrings(arr) {
-    f
-    
-
+    for (const iterator of arr) {
+        console.log(iterator.toLowerCase());
+    }
 }
 
-
-console.log(standardizeStrings(favoriteCities));
-
+standardizeStrings(favoriteCities);
