@@ -35,22 +35,31 @@
 
 
 
-const students = ['Peter', 'Andrew', 'Ann', 'Mark', 'Josh', 'Sandra', 'Cris', 'Bernard', 'Takesi', 'Sam'];
+const students = ['Peter', 'Andrew', 'Ann', 'Mark', 'Josh', 'Sandra', 'Cris', 'Bernard', 'Takesi'];
 
 function sortStudentsByGroups(arr) {
     const resultArrey = [];
-    const arrGroup1 = [];
-    const arrGroup2 = [];
-    const arrGroup3 = [];
     let st = 'Оставшиеся студенты: ';
 
     arr.sort();
-    // решить задачу через вложенный цикл
-    
 
+    let index = 0;
+    for(let j = 0; j <= Math.floor(arr.length / 3); j++){
+        resultArrey[j] = [arr[index], arr[index+1], arr[index+2]];
+        if(arr.length - index === 0){
+            st += `-`;
+            resultArrey[j] = st;
+        } else if(arr.length - index === 1){
+            st += `${arr[index]}`;
+            resultArrey[j] = st;
+        } else if(arr.length - index === 2){
+            st += `${arr[index]}, ${arr[index+1]}`;
+            resultArrey[j] = st;
+        } 
+        index += 3;
+    }
+    return resultArrey;
 }
-
-
 
 console.log(sortStudentsByGroups(students));
 
