@@ -1,5 +1,7 @@
 "Use strict";
 
+// написать архитектуру, как потом в словаре будет.
+
 let amountOfFilms;
 const personalMoviesDB = {
     count: amountOfFilms,
