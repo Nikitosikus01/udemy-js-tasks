@@ -31,32 +31,35 @@ function calculate(st){
                 return 'Error. Key are not *, /, +, -';
         }
     }
-    
-    function isSymbol(key){
-        for (let i = 0; i < arrSymbols.length; i++) {
-            if (arrSt[key] === arrSymbols[i]) {
-                return true;
-            }
+
+    function division_multiplication(){
+        for (let key = 0; key < arrSt.length; key++) {
+            if (arrSt[key] === "/" || arrSt[key] === "*") {
+                newArr(key);
+                key = 0;
+            } 
         }
     }
 
-// calculate('9 * 8 / ( 78 - 2 * 24 ) + 12')
-
-    for (let key = 0; key < arrSt.length; key++) {
-        
-        if (isSymbol(key)) {
-            newArr(key);
-            key = 0;
-        } 
+    function addition_subtraction(){
+        for (let key = 0; key < arrSt.length; key++) {
+            if (arrSt[key] === "+" || arrSt[key] === "-") {
+                newArr(key);
+                key = 0;
+            } 
+        }   
     }
+
+    division_multiplication();
+    addition_subtraction();
 
     return arrSt[0].toFixed(0);
     // alert(arrSt[0].toFixed(0));
 }
 
 console.log(
-// calculate('21 * 4 / ( 42 - 12 + 86 ) / 54 * 214 + 6432'),
-calculate('9 * 8 / 7 - 2 * 24 + 12')
+calculate('21 * 4 / 42 - 12'), // -10
+calculate('16 / 8 * 7 - 2 * 4 + 12') // 18
 
 );
 // calculate(prompt('Введите пример: \n', ''));
