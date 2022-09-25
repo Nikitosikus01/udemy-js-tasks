@@ -1,10 +1,14 @@
 
 
-function calculate(st){
-    let arrSt = st.split(' ');
-    let arrSymbols = '()*/+-'.split('');
 
-    function newArr (arr, key){
+
+
+function calculate(st){
+    
+    
+
+
+    function newArrWithResultOfCount (arr, key){
         let result;
         switch (arr[key]) {
             case '*':
@@ -33,21 +37,20 @@ function calculate(st){
     }
     
     
-
-    function division_multiplication(arr1){
+    function division_or_multiplication(arr1){
         for (let key = 0; key < arr1.length; key++) {
             if (arr1[key] === "/" || arr1[key] === "*") {
-                newArr(arr1, key);
+                newArrWithResultOfCount(arr1, key);
                 key = 0;
             } 
         }
         return arr1;
     }
 
-    function addition_subtraction(arr1){
+    function addition_or_subtraction(arr1){
         for (let key = 0; key < arr1.length; key++) {
             if (arr1[key] === "+" || arr1[key] === "-") {
-                newArr(arr1, key);
+                newArrWithResultOfCount(arr1, key);
                 key = 0;
             } 
         }
@@ -69,8 +72,8 @@ function calculate(st){
                 j++;
             }
             
-            division_multiplication(arrInBrackets);
-            addition_subtraction(arrInBrackets);
+            division_or_multiplication(arrInBrackets);
+            addition_or_subtraction(arrInBrackets);
 
             console.log(
                 key,
@@ -83,20 +86,54 @@ function calculate(st){
         } 
     }
        
-    division_multiplication(arrSt);
-    addition_subtraction(arrSt);
+    division_or_multiplication(arrSt);
+    addition_or_subtraction(arrSt);
 
 
     return arrSt[0].toFixed(0);
     // alert(arrSt[0].toFixed(0));
 }
 
-console.log(
-// calculate('21 * 4 / 42 - 12'), // -10
-calculate('21 * ( 40 / 4 ) - 120'), // 90
-calculate('21 * 40 / ( 41 - 1 )'), // 21
-// calculate('21 * ( 40 / ( -4 ) ) - 120'), // -330
-calculate('16 / 8 * 7 - 2 * 4 + 12') // 18
 
-);
+
+let arrSt = '21 * ( 40 / 4 ) - 120'.split(''); // st.split('');
+// '21 * ( 40 / 4 ) - 120'
+function checkArrForNum(sym) {
+    const arrNum = '1234567890'.split('');
+    for (let i = 0; i < arrNum.length; i++) {
+        if (arrNum[i] === sym) {
+            return true;
+        }
+    }
+    return false;
+}
+
+console.log(arrSt);
+let newArrey = [];
+for (let iterator = 0, numb = 0, stNum = ''; iterator < 6; iterator++) { // arrSt.length
+    if (checkArrForNum(arrSt[iterator])) {
+        numb ++;
+        stNum += arrSt[iterator];
+        console.log('numb', numb);
+        console.log('stNum', stNum);
+        
+    } else {
+        console.log('iterator', iterator);
+        let i = iterator;
+        // newArrey = arrSt;
+        arrSt.splice(i - numb, numb, stNum);
+        console.log(arrSt);
+        numb = 0;
+        stNum = '';
+    }
+}
+
+
+// console.log(
+// calculate('21 * 4 / 42 - 12'), // -10
+// calculate('21 * ( 40 / 4 ) - 120')//, // 90
+// calculate('21 * 40 / ( 41 - 1 )'), // 21
+// calculate('21 * ( 40 / ( -4 ) ) - 120'), // -330
+// calculate('16 / 8 * 7 - 2 * 4 + 12') // 18
+// );
 // calculate(prompt('Введите пример: \n', ''));
