@@ -96,8 +96,9 @@ function calculate(st){
 
 
 
-let arrSt = '21 * ( 40 / 4 ) - 120'.split(''); // st.split('');
-// '21 * ( 40 / 4 ) - 120'
+let arrSt = '21 * ( 40 / 4 ) - 120'.split(' ').join('').split('');
+console.log(arrSt);
+// '21*(40/4)-120'
 function checkArrForNum(sym) {
     const arrNum = '1234567890'.split('');
     for (let i = 0; i < arrNum.length; i++) {
@@ -108,24 +109,33 @@ function checkArrForNum(sym) {
     return false;
 }
 
-console.log(arrSt);
+function checkArrForSym(sym) {
+    const arrSym = '+-*/()'.split('');
+    for (let j = 0; j < arrSym.length; j++) {
+        if (arrSym[j] === sym) {
+            return true;
+        }
+    }
+    return false;
+}
+// function change to new arr 
 let newArrey = [];
-for (let iterator = 0, numb = 0, stNum = ''; iterator < 6; iterator++) { // arrSt.length
+for (let iterator = 0, numb = 0, stNum = ''; iterator <= arrSt.length; iterator++) { // arrSt.length
+  
     if (checkArrForNum(arrSt[iterator])) {
-        numb ++;
         stNum += arrSt[iterator];
-        console.log('numb', numb);
-        console.log('stNum', stNum);
-        
-    } else {
-        console.log('iterator', iterator);
-        let i = iterator;
-        // newArrey = arrSt;
-        arrSt.splice(i - numb, numb, stNum);
-        console.log(arrSt);
-        numb = 0;
+    } else if (arrSt[iterator] !== '(' && arrSt[iterator] !== ')') {
+        newArrey[numb] = stNum;
+        numb ++;
         stNum = '';
     }
+    if(checkArrForSym(arrSt[iterator])){
+        newArrey[numb] = arrSt[iterator];
+        numb ++;
+    }
+    
+    console.log(newArrey);
+
 }
 
 
