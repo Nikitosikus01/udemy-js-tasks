@@ -96,9 +96,9 @@ function calculate(st){
 
 
 
-let arrSt = '21 * ( 40 / 4 ) - 120'.split(' ').join('').split('');
+let arrSt = '402 * 40 / ( 41 - 1 )'.split(' ').join('').split('');
 console.log(arrSt);
-// '21*(40/4)-120'
+
 function checkArrForNum(sym) {
     const arrNum = '1234567890'.split('');
     for (let i = 0; i < arrNum.length; i++) {
@@ -118,17 +118,21 @@ function checkArrForSym(sym) {
     }
     return false;
 }
+
 // function change to new arr 
 let newArrey = [];
 for (let iterator = 0, numb = 0, stNum = ''; iterator <= arrSt.length; iterator++) { // arrSt.length
-  
+
     if (checkArrForNum(arrSt[iterator])) {
-        stNum += arrSt[iterator];
-    } else if (arrSt[iterator] !== '(' && arrSt[iterator] !== ')') {
+        for (let i = iterator; checkArrForNum(arrSt[i]); i++){
+            stNum += arrSt[i];
+        }
         newArrey[numb] = stNum;
         numb ++;
+        iterator += stNum.length;
         stNum = '';
-    }
+    } 
+    
     if(checkArrForSym(arrSt[iterator])){
         newArrey[numb] = arrSt[iterator];
         numb ++;
@@ -142,7 +146,7 @@ for (let iterator = 0, numb = 0, stNum = ''; iterator <= arrSt.length; iterator+
 // console.log(
 // calculate('21 * 4 / 42 - 12'), // -10
 // calculate('21 * ( 40 / 4 ) - 120')//, // 90
-// calculate('21 * 40 / ( 41 - 1 )'), // 21
+// calculate('402 * 40 / ( 41 - 1 )'), // 21
 // calculate('21 * ( 40 / ( -4 ) ) - 120'), // -330
 // calculate('16 / 8 * 7 - 2 * 4 + 12') // 18
 // );
