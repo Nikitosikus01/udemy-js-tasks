@@ -4,8 +4,47 @@
 
 
 function calculate(st){
-    
-    
+
+    function checkArrForNum(sym) {
+        const arrNum = '1234567890'.split('');
+        for (let i = 0; i < arrNum.length; i++) {
+            if (arrNum[i] === sym) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function checkArrForSym(sym) {
+        const arrSym = '+-*/()'.split('');
+        for (let j = 0; j < arrSym.length; j++) {
+            if (arrSym[j] === sym) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function changeSt (arrSt){
+        let newArrey = [];
+        for (let iterator = 0, numb = 0, stNum = ''; iterator <= arrSt.length; iterator++) {
+            if (checkArrForNum(arrSt[iterator])) {
+                for (let i = iterator; checkArrForNum(arrSt[i]); i++){
+                    stNum += arrSt[i];
+                }
+                newArrey[numb] = stNum;
+                numb ++;
+                iterator += stNum.length;
+                stNum = '';
+            } 
+            
+            if(checkArrForSym(arrSt[iterator])){
+                newArrey[numb] = arrSt[iterator];
+                numb ++;
+            }
+        }
+        return newArrey;
+    }
 
 
     function newArrWithResultOfCount (arr, key){
@@ -35,8 +74,7 @@ function calculate(st){
                 return 'Input error.';
         }
     }
-    
-    
+
     function division_or_multiplication(arr1){
         for (let key = 0; key < arr1.length; key++) {
             if (arr1[key] === "/" || arr1[key] === "*") {
@@ -57,97 +95,39 @@ function calculate(st){
         return arr1;
     }
 
-
-    
-    for (let key = 0; key < arrSt.length; key++) {
-        if (arrSt[key] === "(") {
+    let arrSt = st;
+    st = changeSt(arrSt.split(' ').join('').split(''));
+    for (let key = 0; key < st.length; key++) {
+        if (st[key] === "(") {
             let bracket2 = 0;
             const arrInBrackets = [];
             for(let i = key, j = 0; i ++;){
-                if (arrSt[i] === ")") {
+                if (st[i] === ")") {
                     bracket2 = i;
                     break;
                 }
-                arrInBrackets[j] = arrSt[i];
+                arrInBrackets[j] = st[i];
                 j++;
             }
-            
             division_or_multiplication(arrInBrackets);
             addition_or_subtraction(arrInBrackets);
-
-            console.log(
-                key,
-                bracket2,
-                arrInBrackets,
-                arrSt
-            );
-            arrSt.splice(key, bracket2 - 1, arrInBrackets);
-            console.log(arrSt);
+            st.splice(key, bracket2 - 1, arrInBrackets);
         } 
     }
-       
-    division_or_multiplication(arrSt);
-    addition_or_subtraction(arrSt);
-
-
-    return arrSt[0].toFixed(0);
-    // alert(arrSt[0].toFixed(0));
+    division_or_multiplication(st);
+    addition_or_subtraction(st);
+    return st[0].toFixed(0);
 }
 
 
 
-let arrSt = '402 * 40 / ( 41 - 1 )'.split(' ').join('').split('');
-console.log(arrSt);
 
-function checkArrForNum(sym) {
-    const arrNum = '1234567890'.split('');
-    for (let i = 0; i < arrNum.length; i++) {
-        if (arrNum[i] === sym) {
-            return true;
-        }
-    }
-    return false;
-}
+console.log(
+    // calculate('21 * ( 40 / ( -4 ) ) - 120') // -330
+    calculate('402 * 40 / ( 41 - 1 )'), // 402
+    calculate('21 * 4 / 42 - 12'), // -10
+    calculate('21 * ( 40 / 4 ) - 120'), // 90
+    calculate('16 / 8 * 7 - 2 * 4 + 12') // 18
+);
 
-function checkArrForSym(sym) {
-    const arrSym = '+-*/()'.split('');
-    for (let j = 0; j < arrSym.length; j++) {
-        if (arrSym[j] === sym) {
-            return true;
-        }
-    }
-    return false;
-}
-
-// function change to new arr 
-let newArrey = [];
-for (let iterator = 0, numb = 0, stNum = ''; iterator <= arrSt.length; iterator++) { // arrSt.length
-
-    if (checkArrForNum(arrSt[iterator])) {
-        for (let i = iterator; checkArrForNum(arrSt[i]); i++){
-            stNum += arrSt[i];
-        }
-        newArrey[numb] = stNum;
-        numb ++;
-        iterator += stNum.length;
-        stNum = '';
-    } 
-    
-    if(checkArrForSym(arrSt[iterator])){
-        newArrey[numb] = arrSt[iterator];
-        numb ++;
-    }
-    
-    console.log(newArrey);
-
-}
-
-
-// console.log(
-// calculate('21 * 4 / 42 - 12'), // -10
-// calculate('21 * ( 40 / 4 ) - 120')//, // 90
-// calculate('402 * 40 / ( 41 - 1 )'), // 21
-// calculate('21 * ( 40 / ( -4 ) ) - 120'), // -330
-// calculate('16 / 8 * 7 - 2 * 4 + 12') // 18
-// );
 // calculate(prompt('Введите пример: \n', ''));
