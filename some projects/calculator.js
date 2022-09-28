@@ -26,21 +26,47 @@ function calculate(st){
     }
 
     function changeSt (arrSt){
+        // 21*(40/(-4))-120
+        // -(16/8+12)
+        console.log('arrSt in fu', arrSt);
+
         let newArrey = [];
         for (let iterator = 0, numb = 0, stNum = ''; iterator <= arrSt.length; iterator++) {
+            console.log(iterator);
             if (checkArrForNum(arrSt[iterator])) {
                 for (let i = iterator; checkArrForNum(arrSt[i]); i++){
                     stNum += arrSt[i];
                 }
+                // if (arrSt[iterator - 2] === '(' && arrSt[iterator - 1] === '-'){
+                //     newArrey[numb] = '-'+stNum;
+                //     numb ++;
+                // } else 
                 newArrey[numb] = stNum;
                 numb ++;
                 iterator += stNum.length;
+                console.log('iterator += stNum.length', iterator);
                 stNum = '';
             } 
             
             if(checkArrForSym(arrSt[iterator])){
-                newArrey[numb] = arrSt[iterator];
-                numb ++;
+                if (arrSt[iterator] === '(' && arrSt[iterator + 1] === '-') {
+                    let i = iterator + 2;
+                    while (checkArrForNum(arrSt[i])){
+                        stNum += arrSt[i];
+                        i++;
+                    }
+                    iterator = i; // 10
+                    console.log(arrSt[iterator]);
+
+                    newArrey[numb] = '-'+stNum;
+                    numb ++;
+                    stNum = '';
+
+                } else {
+                    newArrey[numb] = arrSt[iterator];
+                    numb ++;
+                }
+
             }
         }
         return newArrey;
@@ -96,7 +122,9 @@ function calculate(st){
     }
 
     let arrSt = st;
+    console.log('arrSt', arrSt);
     st = changeSt(arrSt.split(' ').join('').split(''));
+
     for (let key = 0; key < st.length; key++) {
         if (st[key] === "(") {
             let bracket2 = 0;
@@ -123,11 +151,12 @@ function calculate(st){
 
 
 console.log(
-    // calculate('21 * ( 40 / ( -4 ) ) - 120') // -330
-    calculate('402 * 40 / ( 41 - 1 )'), // 402
-    calculate('21 * 4 / 42 - 12'), // -10
-    calculate('21 * ( 40 / 4 ) - 120'), // 90
-    calculate('16 / 8 * 7 - 2 * 4 + 12') // 18
+    calculate('21 * ( 40 / ( -4 ) ) - 120') // -330
+    // calculate('402 * 40 / ( 41 - 1 )'), // 402
+    // calculate('21 * 4 / 42 - 12'), // -10
+    // calculate('21 * ( 40 / 4 ) - 120'), // 90
+    // calculate('16 / 8 * 7 - 2 * 4 + 12') // 18
+    // calculate('-(16 / 8 + 12)') // 
 );
 
 // calculate(prompt('Введите пример: \n', ''));
