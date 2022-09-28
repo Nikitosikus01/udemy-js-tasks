@@ -26,14 +26,10 @@ function calculate(st){
     }
 
     function changeSt (arrSt){
-        // 21*(40/(-4))-120
-        // '-25*(-1)'
         // -(16/8+12)
-        console.log('arrSt in fu', arrSt);
-
+        // -(-46*(-3))
         let newArrey = [];
         for (let iterator = 0, numb = 0, stNum = ''; iterator <= arrSt.length; iterator++) {
-            console.log(iterator);
             if (checkArrForNum(arrSt[iterator])) {
                 for (let i = iterator; checkArrForNum(arrSt[i]); i++){
                     stNum += arrSt[i];
@@ -41,7 +37,6 @@ function calculate(st){
                 newArrey[numb] = stNum;
                 numb ++;
                 iterator += stNum.length;
-                console.log('iterator += stNum.length', iterator);
                 stNum = '';
             } 
             
@@ -52,9 +47,7 @@ function calculate(st){
                         stNum += arrSt[i];
                         i++;
                     }
-                    iterator = i; // 10
-                    console.log(arrSt[iterator]);
-
+                    iterator = i;
                     newArrey[numb] = '-'+stNum;
                     numb ++;
                     stNum = '';
@@ -65,22 +58,18 @@ function calculate(st){
                         i++;
                     }
                     iterator = i - 1; 
-                    console.log(arrSt[iterator]);
-
                     newArrey[numb] = '-'+stNum;
                     numb ++;
                     stNum = '';
-
 
                 } else {
                     newArrey[numb] = arrSt[iterator];
                     numb ++;
                 }
-
             }
         }
-        // return newArrey;
-        console.log(newArrey);
+        return newArrey;
+        // console.log(newArrey);
     }
 
 
@@ -133,9 +122,7 @@ function calculate(st){
     }
 
     let arrSt = st;
-    console.log('arrSt', arrSt);
-    st = changeSt(arrSt.split(' ').join('').split(''));
-
+    st = changeSt(arrSt.split(' ').join('').split('')); 
     for (let key = 0; key < st.length; key++) {
         if (st[key] === "(") {
             let bracket2 = 0;
@@ -162,13 +149,15 @@ function calculate(st){
 
 
 console.log(
-    calculate('-5 * (-1)')
-    // calculate('21 * ( 40 / ( -4 ) ) - 120') // -330
+    // calculate('-5 * (-1)'),
+    // calculate('21 * ( 40 / ( -4 ) ) - 120'), // -330
     // calculate('402 * 40 / ( 41 - 1 )'), // 402
     // calculate('21 * 4 / 42 - 12'), // -10
     // calculate('21 * ( 40 / 4 ) - 120'), // 90
-    // calculate('16 / 8 * 7 - 2 * 4 + 12') // 18
+    calculate('3*2-(24-20*3)+6')
+
     // calculate('-(16 / 8 + 12)') // 
+    // calculate('-(-46*(-3))') // 
 );
 
-// calculate(prompt('Введите пример: \n', ''));
+// alert(calculate(prompt('Введите пример: \n', '')));
