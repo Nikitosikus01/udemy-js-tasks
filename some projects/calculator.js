@@ -27,6 +27,7 @@ function calculate(st){
 
     function changeSt (arrSt){
         // 21*(40/(-4))-120
+        // '-25*(-1)'
         // -(16/8+12)
         console.log('arrSt in fu', arrSt);
 
@@ -37,10 +38,6 @@ function calculate(st){
                 for (let i = iterator; checkArrForNum(arrSt[i]); i++){
                     stNum += arrSt[i];
                 }
-                // if (arrSt[iterator - 2] === '(' && arrSt[iterator - 1] === '-'){
-                //     newArrey[numb] = '-'+stNum;
-                //     numb ++;
-                // } else 
                 newArrey[numb] = stNum;
                 numb ++;
                 iterator += stNum.length;
@@ -61,6 +58,19 @@ function calculate(st){
                     newArrey[numb] = '-'+stNum;
                     numb ++;
                     stNum = '';
+                } else if (arrSt[iterator] === '-' && checkArrForNum(arrSt[iterator + 1])){
+                    let i = iterator + 1;
+                    while (checkArrForNum(arrSt[i])){
+                        stNum += arrSt[i];
+                        i++;
+                    }
+                    iterator = i - 1; 
+                    console.log(arrSt[iterator]);
+
+                    newArrey[numb] = '-'+stNum;
+                    numb ++;
+                    stNum = '';
+
 
                 } else {
                     newArrey[numb] = arrSt[iterator];
@@ -69,7 +79,8 @@ function calculate(st){
 
             }
         }
-        return newArrey;
+        // return newArrey;
+        console.log(newArrey);
     }
 
 
@@ -151,7 +162,8 @@ function calculate(st){
 
 
 console.log(
-    calculate('21 * ( 40 / ( -4 ) ) - 120') // -330
+    calculate('-5 * (-1)')
+    // calculate('21 * ( 40 / ( -4 ) ) - 120') // -330
     // calculate('402 * 40 / ( 41 - 1 )'), // 402
     // calculate('21 * 4 / 42 - 12'), // -10
     // calculate('21 * ( 40 / 4 ) - 120'), // 90
